@@ -1,6 +1,8 @@
-name: wofkflow01
-on: [push]
-  workflow_dispatch
+name: workflow01
+
+on:
+  push:
+  workflow_dispatch:  # 👈 This enables manual triggering from GitHub UI
 
 jobs:
   debug:
@@ -8,15 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Set up secret file
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        ...
-        ...
-      run: |
-        echo ${{secrets.AWS_ACCESS_KEY_ID}} | sed 's/./& /g'
-        ...
-        ...
+      - name: Set up secret file
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # Add other secrets here if needed
+        run: |
+          echo ${{ secrets.AWS_ACCESS_KEY_ID }} | sed 's/./& /g'
+          # Add your other commands here
