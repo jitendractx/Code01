@@ -1,5 +1,6 @@
 name: wofkflow01
 on: [push]
+workflow_dispatch
 
 jobs:
   debug:
