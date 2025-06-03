@@ -1,23 +1,17 @@
-name: Run CLI Commands
+name: Manual Prompt Example
 
 on:
-  push:
-  workflow_dispatch:  # Allows manual trigger
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'staging'
 
 jobs:
-  run-cli:
-    name: Run Commands
+  example:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run simple shell commands
+      - name: Use input value
         run: |
-          echo "✅ Running command-line operations"
-          pwd
-          ls -al
-          echo "🔧 Current date:"
-          date
-          echo "✅ Done"
+          echo "You selected environment: ${{ github.event.inputs.environment }}"
