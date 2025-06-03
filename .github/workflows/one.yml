@@ -1,24 +1,23 @@
-name: workflow01
+name: Run CLI Commands
 
 on:
-  workflow_dispatch
+  push:
+  workflow_dispatch:  # Allows manual trigger
 
 jobs:
-  debug:
-    name: Debug
+  run-cli:
+    name: Run Commands
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up secret file
-      env:
-        DEBUG_PASSWORD: ${{ secrets.DEBUG_PASSWORD }}
-        DEBUG_SECRET_KEY: ${{ secrets.DEBUG_SECRET_KEY }}
-      run: |
-        echo $DEBUG_PASSWORD >> secrets.txt
-        echo $DEBUG_SECRET_KEY >> secrets.txt
-
-    - name: Run tmate
-      uses: mxschmitt/action-tmate@v2
+      - name: Run simple shell commands
+        run: |
+          echo "✅ Running command-line operations"
+          pwd
+          ls -al
+          echo "🔧 Current date:"
+          date
+          echo "✅ Done"
